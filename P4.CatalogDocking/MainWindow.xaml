@@ -1,0 +1,71 @@
+﻿<Window x:Class="P4.CatalogDocking.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:P4.CatalogDocking"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="669" ResizeMode="NoResize">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Ежемесячная">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Загрузить" Height="240" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="П-4" Width="324"  >
+                                <StackPanel Orientation ="Vertical">
+                                    <Label x:Name="LblCountP4CatCurMonth" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name="LoadP4CatCurMonth" Margin="10,0,0,0" Content="П-4 каталог за текущий месяц" Width="176" Height="25" HorizontalAlignment="Left" Click="LoadP4CatCurMonth_Click"/>
+                                    <Label x:Name="LblCountP4CatPrevMonth" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name ="LoadP4CatPrevMonth" Margin="10,0,0,0" Content="П-4 каталог за предыдущий месяц" Height="25" HorizontalAlignment="Left" Width="200" Click="LoadP4CatPrevMonth_Click"/>
+                                    <Label x:Name ="LblCountP4RepPrevMonth" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name ="LoadP4RepPrevMonth" Margin="10,0,0,0" Content="П-4 отчитались за предыдущий месяц" Width="220" Height="25" HorizontalAlignment="Left" Click="LoadP4RepPrevMonth_Click"/>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="П-1" Width="325">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="LblCountP1RepPrevMonth" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name ="LoadP1RepPrevMonth" Margin="10,0,0,0" Content="П-1 отчитались за предыдущий месяц" Width="220" Height="25" HorizontalAlignment="Left" Click="LoadP1RepPrevMonth_Click"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Выполнить" Margin="0,245,0,0">
+                        <StackPanel Orientation="Vertical">
+                            <Button Content="Выполнить стыковки" x:Name="DockingCatalogsMonth" Width="164" Height="25" HorizontalAlignment="Center" Margin="50" Click="DockingCatalogsMonth_Click"/>
+                        </StackPanel>
+                    </GroupBox>                  
+                </Grid>
+            </TabItem>
+            <TabItem Header="Квартальная">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Загрузить" Height="240" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="П-4" Width="324"  >
+                                <StackPanel Orientation ="Vertical">
+                                    <Label x:Name="LblCountP4CatCurQuart" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name="LoadP4CatCurQuart" Margin="10,0,0,0" Content="П-4 каталог за текущий квартал" Width="183" Height="25" HorizontalAlignment="Left" Click="LoadP4CatCurQuart_Click"/>
+                                    <Label x:Name="LblCountP4CatPrevQuart" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name ="LoadP4CatPrevQuart" Margin="10,0,0,0" Content="П-4 каталог за предыдущий квартал" Height="25" HorizontalAlignment="Left" Width="206" Click="LoadP4CatPrevQuart_Click"/>
+                                    <Label x:Name ="LblCountP4RepPrevQuart" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name ="LoadP4RepPrevQuart" Margin="10,0,0,0" Content="П-4 отчитались за предыдущий квартал" Width="231" Height="25" HorizontalAlignment="Left" Click="LoadP4RepPrevQuart_Click"/>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="П-5" Width="325">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="LblCountP5RepPrevQuart" Margin="10,10,0,0" Height="25" Width="300" HorizontalAlignment="Left"/>
+                                    <Button x:Name ="LoadP5RepPrevQuart" Margin="10,0,0,0" Content="П-5 отчитались за предыдущий квартал" Width="238" Height="25" HorizontalAlignment="Left" Click="LoadP5RepPrevQuart_Click"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Выполнить" Margin="0,245,0,0">
+                        <StackPanel Orientation="Vertical">
+                            <Button Content="Выполнить стыковки" x:Name="DockingCatalogsQuart" Width="164" Height="25" HorizontalAlignment="Center" Margin="50" Click="DockingCatalogsQuart_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
