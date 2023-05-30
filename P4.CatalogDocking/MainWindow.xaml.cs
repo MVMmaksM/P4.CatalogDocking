@@ -152,14 +152,14 @@ namespace P4.CatalogDocking
 
         private void LoadP5RepPrevQuart_Click(object sender, RoutedEventArgs e)
         {
-            //var loadCatalogServices = new FileServices<P5ReportQuarter>(new P5ReportQuarterWork());
-            //var pathFile = FileDialog.ShowFileDialog();
+            var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+            var pathFile = FileDialog.ShowFileDialog();
 
-            //if (pathFile is not null)
-            //{
-            //    p5ReportPrevQuarter = loadCatalogServices.Read(pathFile);
-            //    LblCountP5RepPrevQuart.Content = StringCount.GetStringCountLoad(p5ReportPrevQuarter.Count);
-            //}
+            if (pathFile is not null)
+            {
+                p5ReportPrevQuarter = loadCatalogServices.Read(pathFile);
+                LblCountP5RepPrevQuart.Content = StringCount.GetStringCountLoad(p5ReportPrevQuarter.Count);
+            }
         }
     }
 }
