@@ -52,6 +52,47 @@ namespace P4.CatalogDocking.Services
 
             return package;
         }
+
+        private static ExcelPackage CreateExcelResultDockingCatalog()
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var package = new ExcelPackage();
+            var sheet = package.Workbook.Worksheets.Add("Лист 1");
+
+            sheet.Cells[1, 1, 1, 12].Merge = true;
+            sheet.Cells[1, 1, 1, 12].Value = "Текущий период";
+            sheet.Cells[1, 1, 1, 12].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+            sheet.Cells[2, 1].Value = "ОКПО";
+            sheet.Cells[2, 2].Value = "ОКПО ЮЛ";
+            sheet.Cells[2, 3].Value = "Краткое наименование объекта / Краткое наименование";
+            sheet.Cells[2, 4].Value = "ОКФС";
+            sheet.Cells[2, 5].Value = "КИЕС";
+            sheet.Cells[2, 6].Value = "ОКАТО факт.";
+            sheet.Cells[2, 7].Value = "Код ОКОГУ";
+            sheet.Cells[2, 8].Value = "ОКОПФ";
+            sheet.Cells[2, 9].Value = "ОКТМО";
+            sheet.Cells[2, 10].Value = "Тип предприятия";
+            sheet.Cells[2, 11].Value = "Факт.ОКВЭД2: Основной в.д.";
+            sheet.Cells[2, 12].Value = "Тип актуализации";
+
+            sheet.Cells[1, 13, 1, 25].Merge = true;
+            sheet.Cells[1, 13, 1, 25].Value = "Предыдущий период";
+            sheet.Cells[1, 13, 1, 25].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+            sheet.Cells[2, 13].Value = "ОКПО";
+            sheet.Cells[2, 14].Value = "ОКПО ЮЛ";
+            sheet.Cells[2, 15].Value = "Краткое наименование объекта / Краткое наименование";
+            sheet.Cells[2, 16].Value = "ОКФС";
+            sheet.Cells[2, 17].Value = "КИЕС";
+            sheet.Cells[2, 18].Value = "ОКАТО факт.";
+            sheet.Cells[2, 19].Value = "Код ОКОГУ";
+            sheet.Cells[2, 20].Value = "ОКОПФ";
+            sheet.Cells[2, 21].Value = "ОКТМО";
+            sheet.Cells[2, 22].Value = "Тип предприятия";
+            sheet.Cells[2, 23].Value = "Факт.ОКВЭД2: Основной в.д.";
+            sheet.Cells[2, 24].Value = "Тип актуализации";
+
+            return package;
+        }
         public static byte[] GetExcelFromList(List<BaseModel> resultDockingCatalog)
         {
             if (resultDockingCatalog.Count == 0)
@@ -110,52 +151,20 @@ namespace P4.CatalogDocking.Services
                 }
             }
 
-
             return excelPackage.GetAsByteArray();
         }
 
         public static byte[] GetExcelFromList(List<ResultDockingCatalog> resultDockingCatalog, int columnFromColorCur, int columnFromColorPrev)
-        {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var package = new ExcelPackage();
-            var sheet = package.Workbook.Worksheets.Add("Лист 1");
-
-            sheet.Cells[1, 1, 1, 12].Merge = true;
-            sheet.Cells[1, 1, 1, 12].Value = "Текущий период";
-            sheet.Cells[1, 1, 1, 12].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-            sheet.Cells[2, 1].Value = "ОКПО";
-            sheet.Cells[2, 2].Value = "ОКПО ЮЛ";
-            sheet.Cells[2, 3].Value = "Краткое наименование объекта / Краткое наименование";
-            sheet.Cells[2, 4].Value = "ОКФС";
-            sheet.Cells[2, 5].Value = "КИЕС";
-            sheet.Cells[2, 6].Value = "ОКАТО факт.";
-            sheet.Cells[2, 7].Value = "Код ОКОГУ";
-            sheet.Cells[2, 8].Value = "ОКОПФ";
-            sheet.Cells[2, 9].Value = "ОКТМО";
-            sheet.Cells[2, 10].Value = "Тип предприятия";
-            sheet.Cells[2, 11].Value = "Факт.ОКВЭД2: Основной в.д.";
-            sheet.Cells[2, 12].Value = "Тип актуализации";
-
-            sheet.Cells[1, 13, 1, 25].Merge = true;
-            sheet.Cells[1, 13, 1, 25].Value = "Предыдущий период";
-            sheet.Cells[1, 13, 1, 25].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-            sheet.Cells[2, 13].Value = "ОКПО";
-            sheet.Cells[2, 14].Value = "ОКПО ЮЛ";
-            sheet.Cells[2, 15].Value = "Краткое наименование объекта / Краткое наименование";
-            sheet.Cells[2, 16].Value = "ОКФС";
-            sheet.Cells[2, 17].Value = "КИЕС";
-            sheet.Cells[2, 18].Value = "ОКАТО факт.";
-            sheet.Cells[2, 19].Value = "Код ОКОГУ";
-            sheet.Cells[2, 20].Value = "ОКОПФ";
-            sheet.Cells[2, 21].Value = "ОКТМО";
-            sheet.Cells[2, 22].Value = "Тип предприятия";
-            sheet.Cells[2, 23].Value = "Факт.ОКВЭД2: Основной в.д.";
-            sheet.Cells[2, 24].Value = "Тип актуализации";
-
+        {         
             if (resultDockingCatalog.Count == 0)
             {
+                var package = new ExcelPackage();
+                package.Workbook.Worksheets.Add("Лист 1");
                 return package.GetAsByteArray();
             }
+
+            var excelPackage = CreateExcelResultDockingCatalog();
+            var sheet = excelPackage.Workbook.Worksheets[0];
 
             for (int i = 0; i < resultDockingCatalog.Count; i++)
             {
@@ -191,7 +200,7 @@ namespace P4.CatalogDocking.Services
             sheet.Cells[3, columnFromColorPrev, 2 + toRowEnd, columnFromColorPrev].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
             sheet.Cells[3, columnFromColorPrev, 2 + toRowEnd, columnFromColorPrev].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
 
-            return package.GetAsByteArray();
+            return excelPackage.GetAsByteArray();
         }
     }
 }
