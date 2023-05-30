@@ -270,6 +270,17 @@ namespace P4.CatalogDocking
             {
                 throw;
             }
-        }      
+        }
+
+        public void SaveSetting(SettingModel settingModel ) 
+        {
+            Setting.SetSetting(settingModel);
+        }
+
+        public void GetSetting() 
+        {
+            var setting = new SettingModel() { pathSaveFileResult = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{DateTime.Now.ToShortDateString()}_сверка") };
+            Setting.SetSetting(setting);
+        }
     }
 }

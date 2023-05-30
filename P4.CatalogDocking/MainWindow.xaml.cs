@@ -28,6 +28,8 @@ namespace P4.CatalogDocking
         {
             InitializeComponent();
             _facadeWork = new Facade(new Message());
+            _facadeWork.GetSetting();
+            TxtBxPathSaveResultFile.Text = Setting.GetFolderPath();
         }
 
         private void LoadP4CatCurMonth_Click(object sender, RoutedEventArgs e)
@@ -78,6 +80,11 @@ namespace P4.CatalogDocking
         private void LoadP5RepPrevQuart_Click(object sender, RoutedEventArgs e)
         {
             LblCountP5RepPrevQuart.Content = _facadeWork.LoadP5RepPrevQuart();
+        }
+
+        private void BtnSaveSetting_Click(object sender, RoutedEventArgs e)
+        {
+            _facadeWork.SaveSetting(new SettingModel() {pathSaveFileResult = TxtBxPathSaveResultFile.Text });
         }
     }
 }

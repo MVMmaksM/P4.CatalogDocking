@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:P4.CatalogDocking"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="669" ResizeMode="NoResize">
+        Title="Стыковка П-4" Height="450" Width="669" ResizeMode="NoResize">
     <Grid>
         <TabControl>
             <TabItem Header="Ежемесячная">
@@ -34,7 +34,7 @@
                         <StackPanel Orientation="Vertical">
                             <Button Content="Выполнить стыковки" x:Name="DockingCatalogsMonth" Width="164" Height="25" HorizontalAlignment="Center" Margin="50" VerticalAlignment="Center"  Click="DockingCatalogsMonth_Click"/>
                         </StackPanel>
-                    </GroupBox>                  
+                    </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Квартальная">
@@ -64,6 +64,13 @@
                             <Button Content="Выполнить стыковки" x:Name="DockingCatalogsQuart" Width="164" Height="25" HorizontalAlignment="Center" Margin="50" Click="DockingCatalogsQuart_Click"/>
                         </StackPanel>
                     </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Настройки">
+                <Grid>
+                    <Label Content="Путь сохранения результатов:" VerticalContentAlignment="Center" Height="25" Margin="10,34,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="179"/>
+                    <TextBox x:Name="TxtBxPathSaveResultFile" Text="" Height="25" Margin="189,34,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                    <Button x:Name="BtnSaveSetting" Content="Сохранить"  Height="25" Margin="272,338,0,0" Click="BtnSaveSetting_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
                 </Grid>
             </TabItem>
         </TabControl>
