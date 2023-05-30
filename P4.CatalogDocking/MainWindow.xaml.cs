@@ -27,7 +27,7 @@ namespace P4.CatalogDocking
         public MainWindow()
         {
             InitializeComponent();
-            _facadeWork = new Facade();
+            _facadeWork = new Facade(new Message());
         }
 
         private void LoadP4CatCurMonth_Click(object sender, RoutedEventArgs e)
@@ -67,7 +67,7 @@ namespace P4.CatalogDocking
 
         private void DockingCatalogsMonth_Click(object sender, RoutedEventArgs e)
         {
-            _facadeWork.DockingCatalogsMonth(TxtBoxCurPeriod.Text, TxtBoxPrevPeriod.Text);
+            _facadeWork.DockingCatalogsMonth();
         }
 
         private void DockingCatalogsQuart_Click(object sender, RoutedEventArgs e)

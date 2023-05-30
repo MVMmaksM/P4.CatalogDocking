@@ -15,6 +15,8 @@ namespace P4.CatalogDocking
 {
     public class Facade
     {
+        private IMessage _message;
+
         private List<CatalogModel> p4CatalogCurMonth = new List<CatalogModel>();
         private List<CatalogModel> p4CatalogPrevMonth = new List<CatalogModel>();
         private List<ReportingModel> p4ReportPrevMonth = new List<ReportingModel>();
@@ -24,146 +26,250 @@ namespace P4.CatalogDocking
         private List<ReportingModel> p1ReportPrevMonth = new List<ReportingModel>();
         private List<ReportingModel> p5ReportPrevQuarter = new List<ReportingModel>();
 
+        string p4CatalogCurMonthFileName = string.Empty;
+        string p4CatalogPrevMonthFileName = string.Empty;
+        string p4ReportPrevMonthFileName = string.Empty;
+        string p4CatalogCurQuarterFileName = string.Empty;
+        string p4CatalogPrevQuarterFileName = string.Empty;
+        string p4ReportPrevQuarterFileName = string.Empty;
+        string p1ReportPrevMonthFileName = string.Empty;
+        string p5ReportPrevQuarterfileName = string.Empty;
+
+        public Facade(IMessage message)
+        {
+            _message = message;
+        }
+
         public string LoadP4CatCurMonth()
         {
-            var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            try
             {
-                p4CatalogCurMonth = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p4CatalogCurMonth.Count);
-            }
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var pathFile = FileDialog.ShowFileDialog();
 
-            return string.Empty;
+                if (pathFile is not null)
+                {
+                    p4CatalogCurMonth = loadCatalogServices.Read(pathFile);
+                    p4CatalogCurMonthFileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p4CatalogCurMonth.Count, p4CatalogCurMonthFileName);
+                }
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public string LoadP4CatPrevMonth()
         {
-            var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            try
             {
-                p4CatalogPrevMonth = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p4CatalogPrevMonth.Count);
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var pathFile = FileDialog.ShowFileDialog();
+
+                if (pathFile is not null)
+                {
+                    p4CatalogPrevMonth = loadCatalogServices.Read(pathFile);
+                    p4CatalogPrevMonthFileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p4CatalogPrevMonth.Count, p4CatalogPrevMonthFileName);
+                }
+
+                return string.Empty;
             }
-
-            return string.Empty;
-        }
-
-        public string LoadP4RepPrevMonth() 
-        {
-            var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            catch (Exception ex)
             {
-                p4ReportPrevMonth = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p4ReportPrevMonth.Count);
+                throw;
             }
-
-            return string.Empty;
         }
 
-        public string LoadP1RepPrevMonth() 
+        public string LoadP4RepPrevMonth()
         {
-            var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            try
             {
-                p1ReportPrevMonth = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p1ReportPrevMonth.Count);
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var pathFile = FileDialog.ShowFileDialog();
+
+                if (pathFile is not null)
+                {
+                    p4ReportPrevMonth = loadCatalogServices.Read(pathFile);
+                    p4ReportPrevMonthFileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p4ReportPrevMonth.Count, p4ReportPrevMonthFileName);
+                }
+
+                return string.Empty;
             }
-
-            return string.Empty;
-        }
-
-        public string LoadP4CatCurQuart() 
-        {
-            var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            catch (Exception ex)
             {
-                p4CatalogCurQuarter = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p4CatalogCurQuarter.Count);
+                throw;
             }
-
-            return string.Empty;
         }
 
-        public string LoadP4CatPrevQuart() 
+        public string LoadP1RepPrevMonth()
         {
-            var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            try
             {
-                p4CatalogPrevQuarter = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p4CatalogPrevQuarter.Count);
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var pathFile = FileDialog.ShowFileDialog();
+
+                if (pathFile is not null)
+                {
+                    p1ReportPrevMonth = loadCatalogServices.Read(pathFile);
+                    p1ReportPrevMonthFileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p1ReportPrevMonth.Count, p1ReportPrevMonthFileName);
+                }
+
+                return string.Empty;
             }
-
-            return string.Empty;
-        }
-
-        public string LoadP4RepPrevQuart() 
-        {
-            var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            catch (Exception ex)
             {
-                p4ReportPrevQuarter = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p4ReportPrevQuarter.Count);
+                throw;
             }
-
-            return string.Empty;
         }
 
-        public string LoadP5RepPrevQuart() 
+        public string LoadP4CatCurQuart()
         {
-            var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
-            var pathFile = FileDialog.ShowFileDialog();
-
-            if (pathFile is not null)
+            try
             {
-                p5ReportPrevQuarter = loadCatalogServices.Read(pathFile);
-                return StringCount.GetStringCountLoad(p5ReportPrevQuarter.Count);
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var pathFile = FileDialog.ShowFileDialog();
+
+                if (pathFile is not null)
+                {
+                    p4CatalogCurQuarter = loadCatalogServices.Read(pathFile);
+                    p4CatalogCurQuarterFileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p4CatalogCurQuarter.Count, p4CatalogCurQuarterFileName);
+                }
+
+                return string.Empty;
             }
-
-            return string.Empty;
-        }        
-
-        public void DockingCatalogsMonth(string currentMonth, string previousMonth) 
-        {
-            var exceptCurPrev = CatalogComparator.ExceptCatalog(p4CatalogCurMonth.ToList<BaseModel>(), p4CatalogPrevMonth.ToList<BaseModel>());
-            var exceptPrevCur = CatalogComparator.ExceptCatalog(p4CatalogPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
-            var exceptCurP4RepP1 = CatalogComparator.ExceptCatalog(p1ReportPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
-            var liquidatedOrganizations = CatalogComparator.GetLiquidatedOrganization(p4CatalogCurMonth);
-            var dockingOkved = CatalogComparator.GetDockingCatalog(p4CatalogCurMonth, p4CatalogPrevMonth, a => a.OkvedFact != a.PrevOkvedFact);
-            var dockingOkato = CatalogComparator.GetDockingCatalog(p4CatalogCurMonth, p4CatalogPrevMonth, a => a.OkatoFact != a.PrevOkatoFact);
-
-            var fullNameExceptP4CurPrev = FileName.GetFullNameExceptP4(currentMonth, previousMonth);
-            var fullNameExceptP4PrevCur = FileName.GetFullNameExceptP4(previousMonth, currentMonth);
-            var fullNameExcRepP1 = FileName.GetFullNameExcRepP1(previousMonth, currentMonth);
-            var fullNameLiquidation = FileName.GetFullNameLiquidation();
-            var fullNameOkved = FileName.GetFullNameOkved();
-            var fullNameOkato = FileName.GetFullNameOkato();
-
-            var saveResultServices = new FileServices<ReportingModel>(new ReportingWork());
-            saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurPrev), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4CurPrev));
-            saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptPrevCur), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4PrevCur));
-            saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurP4RepP1), Path.Combine(Setting.GetFolderPath(), fullNameExcRepP1));
-            saveResultServices.Save(ExcelFileWork.GetExcelFromList(liquidatedOrganizations.ToList<BaseModel>()), Path.Combine(Setting.GetFolderPath(), fullNameLiquidation));
-            saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkved, 11, 23), Path.Combine(Setting.GetFolderPath(), fullNameOkved));
-            saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkato, 6, 18), Path.Combine(Setting.GetFolderPath(), fullNameOkato));
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        public void DockingCatalogsQuart() 
+        public string LoadP4CatPrevQuart()
         {
-            
+            try
+            {
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var pathFile = FileDialog.ShowFileDialog();
+
+                if (pathFile is not null)
+                {
+                    p4CatalogPrevQuarter = loadCatalogServices.Read(pathFile);
+                    p4CatalogPrevQuarterFileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p4CatalogPrevQuarter.Count, p4CatalogPrevQuarterFileName);
+                }
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
+
+        public string LoadP4RepPrevQuart()
+        {
+            try
+            {
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var pathFile = FileDialog.ShowFileDialog();
+
+                if (pathFile is not null)
+                {
+                    p4ReportPrevQuarter = loadCatalogServices.Read(pathFile);
+                    p4ReportPrevQuarterFileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p4ReportPrevQuarter.Count, p4ReportPrevQuarterFileName);
+                }
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public string LoadP5RepPrevQuart()
+        {
+            try
+            {
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var pathFile = FileDialog.ShowFileDialog();
+
+                if (pathFile is not null)
+                {
+                    p5ReportPrevQuarter = loadCatalogServices.Read(pathFile);
+                    p5ReportPrevQuarterfileName = Path.GetFileNameWithoutExtension(pathFile);
+                    return StringCount.GetStringCountLoad(p5ReportPrevQuarter.Count, p5ReportPrevQuarterfileName);
+                }
+
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void DockingCatalogsMonth()
+        {
+            try
+            {
+                if (p4CatalogCurMonth.Count != 0 && p4CatalogPrevMonth.Count != 0 && p1ReportPrevMonth.Count != 0 && p4ReportPrevMonth.Count != 0)
+                {
+                    var exceptCurPrev = CatalogComparator.ExceptCatalog(p4CatalogCurMonth.ToList<BaseModel>(), p4CatalogPrevMonth.ToList<BaseModel>());
+                    var exceptPrevCur = CatalogComparator.ExceptCatalog(p4CatalogPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
+                    var exceptCurP4RepP1 = CatalogComparator.ExceptCatalog(p1ReportPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
+                    var exceptCurP4RepP4 = CatalogComparator.ExceptCatalog(p4ReportPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
+                    var liquidatedOrganizations = CatalogComparator.GetLiquidatedOrganization(p4CatalogCurMonth);
+                    var dockingOkved = CatalogComparator.GetDockingCatalog(p4CatalogCurMonth, p4CatalogPrevMonth, a => a.OkvedFact != a.PrevOkvedFact);
+                    var dockingOkato = CatalogComparator.GetDockingCatalog(p4CatalogCurMonth, p4CatalogPrevMonth, a => a.OkatoFact != a.PrevOkatoFact);
+
+                    var fullNameExceptP4CurPrev = FileName.GetFullNameExceptP4(p4CatalogCurMonthFileName, p4CatalogPrevMonthFileName);
+                    var fullNameExceptP4PrevCur = FileName.GetFullNameExceptP4(p4CatalogPrevMonthFileName, p4CatalogCurMonthFileName);
+                    var fullNameExcRepP1 = FileName.GetFullNameExcRep(p1ReportPrevMonthFileName, p4CatalogCurMonthFileName);
+                    var fullNameExcRepP4 = FileName.GetFullNameExcRep(p4ReportPrevMonthFileName, p4CatalogCurMonthFileName);
+                    var fullNameLiquidation = FileName.GetFullNameLiquidation();
+                    var fullNameOkved = FileName.GetFullNameOkved();
+                    var fullNameOkato = FileName.GetFullNameOkato();
+
+                    var saveResultServices = new FileServices<ReportingModel>(new ReportingWork());
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurPrev), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4CurPrev));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptPrevCur), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4PrevCur));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurP4RepP1), Path.Combine(Setting.GetFolderPath(), fullNameExcRepP1));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurP4RepP4), Path.Combine(Setting.GetFolderPath(), fullNameExcRepP4));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(liquidatedOrganizations.ToList<BaseModel>()), Path.Combine(Setting.GetFolderPath(), fullNameLiquidation));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkved, 11, 23), Path.Combine(Setting.GetFolderPath(), fullNameOkved));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkato, 6, 18), Path.Combine(Setting.GetFolderPath(), fullNameOkato));
+
+                    _message.ShowMessageInformation("Свекра выполнена!");
+                }
+                else
+                {
+                    _message.ShowMessageError("Загружены не все данные!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public void DockingCatalogsQuart()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }      
     }
 }

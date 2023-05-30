@@ -8,6 +8,6 @@ namespace P4.CatalogDocking.Views
 {
     public class StringCount
     {
-        public static string GetStringCountLoad(int count) => $"Загружено {count} записей";
+        public static string GetStringCountLoad(int count, string fileName) => $"{fileName} загружено {count} записей";
     }
 }
