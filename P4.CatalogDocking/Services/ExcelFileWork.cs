@@ -29,6 +29,13 @@ namespace P4.CatalogDocking.Services
             sheet.Cells[1, 11].Value = "Факт.ОКВЭД2: Основной в.д.";
             sheet.Cells[1, 12].Value = "Тип актуализации";
 
+            sheet.Cells[1, 1, sheet.Dimension.End.Row, 12].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+            sheet.Cells[1, 1, 1, 12].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 1, 12].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 1, 12].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 1, 12].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
             return package;
         }
 
@@ -49,6 +56,13 @@ namespace P4.CatalogDocking.Services
             sheet.Cells[1, 9].Value = "ОКТМО";
             sheet.Cells[1, 10].Value = "Тип предприятия";
             sheet.Cells[1, 11].Value = "Хоз.ОКВЭД2: Основной в.д.";
+
+            sheet.Cells[1, 1, sheet.Dimension.End.Row, 11].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+            sheet.Cells[1, 1, 1, 11].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 1, 11].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 1, 11].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 1, 11].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
 
             return package;
         }
@@ -90,6 +104,13 @@ namespace P4.CatalogDocking.Services
             sheet.Cells[2, 22].Value = "Тип предприятия";
             sheet.Cells[2, 23].Value = "Факт.ОКВЭД2: Основной в.д.";
             sheet.Cells[2, 24].Value = "Тип актуализации";
+
+            sheet.Cells[1, 1, sheet.Dimension.End.Row, 24].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+            sheet.Cells[1, 1, 2, 24].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 2, 24].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 2, 24].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+            sheet.Cells[1, 1, 2, 24].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
 
             return package;
         }

@@ -58,7 +58,8 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -80,7 +81,8 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -102,7 +104,8 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -124,7 +127,8 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -146,7 +150,8 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -168,7 +173,8 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -190,7 +196,8 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -210,9 +217,10 @@ namespace P4.CatalogDocking
 
                 return string.Empty;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
+                return string.Empty;
             }
         }
 
@@ -224,8 +232,8 @@ namespace P4.CatalogDocking
                 {
                     var exceptCurPrev = CatalogComparator.ExceptCatalog(p4CatalogCurMonth.ToList<BaseModel>(), p4CatalogPrevMonth.ToList<BaseModel>());
                     var exceptPrevCur = CatalogComparator.ExceptCatalog(p4CatalogPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
-                    var exceptCurP4RepP1 = CatalogComparator.ExceptCatalog(p1ReportPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
                     var exceptCurP4RepP4 = CatalogComparator.ExceptCatalog(p4ReportPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
+                    var exceptCurP4RepP1 = CatalogComparator.ExceptCatalog(p1ReportPrevMonth.ToList<BaseModel>(), p4CatalogCurMonth.ToList<BaseModel>());
                     var liquidatedOrganizations = CatalogComparator.GetLiquidatedOrganization(p4CatalogCurMonth);
                     var dockingOkved = CatalogComparator.GetDockingCatalog(p4CatalogCurMonth, p4CatalogPrevMonth, a => a.OkvedFact != a.PrevOkvedFact);
                     var dockingOkato = CatalogComparator.GetDockingCatalog(p4CatalogCurMonth, p4CatalogPrevMonth, a => a.OkatoFact != a.PrevOkatoFact);
@@ -247,7 +255,7 @@ namespace P4.CatalogDocking
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkved, 11, 23), Path.Combine(Setting.GetFolderPath(), fullNameOkved));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkato, 6, 18), Path.Combine(Setting.GetFolderPath(), fullNameOkato));
 
-                    _message.ShowMessageInformation("Свекра выполнена!");
+                    _message.ShowMessageInformation("Сверка выполнена!");
                 }
                 else
                 {
@@ -256,7 +264,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
             }
         }
 
@@ -264,20 +272,55 @@ namespace P4.CatalogDocking
         {
             try
             {
+                if (p4CatalogCurQuarter.Count != 0 && p4CatalogPrevQuarter.Count != 0 && p4ReportPrevQuarter.Count != 0 && p5ReportPrevQuarter.Count != 0)
+                {
 
+
+                    var exceptCurPrevQuar = CatalogComparator.ExceptCatalog(p4CatalogCurQuarter.ToList<BaseModel>(), p4CatalogPrevQuarter.ToList<BaseModel>());
+                    var exceptPrevCurQuar = CatalogComparator.ExceptCatalog(p4CatalogCurQuarter.ToList<BaseModel>(), p4CatalogPrevQuarter.ToList<BaseModel>());
+                    var exceptP4PrevQuarP4CurQuar = CatalogComparator.ExceptCatalog(p4ReportPrevQuarter.ToList<BaseModel>(), p4CatalogCurQuarter.ToList<BaseModel>());
+                    var exceptP5PrevQuarP4CurQuar = CatalogComparator.ExceptCatalog(p5ReportPrevQuarter.ToList<BaseModel>(), p4CatalogCurQuarter.ToList<BaseModel>());
+                    var liquadationOrg = CatalogComparator.GetLiquidatedOrganization(p4CatalogCurQuarter);
+                    var dockingOkved = CatalogComparator.GetDockingCatalog(p4CatalogCurQuarter, p4CatalogPrevQuarter, a => a.OkvedFact != a.PrevOkvedFact);
+                    var dockingOkato = CatalogComparator.GetDockingCatalog(p4CatalogCurQuarter, p4CatalogPrevQuarter, a => a.OkatoFact != a.PrevOkatoFact);
+
+                    var fullNameExceptP4CurPrev = FileName.GetFullNameExceptP4(p4CatalogCurQuarterFileName, p4CatalogPrevQuarterFileName);
+                    var fullNameExceptP4PrevCur = FileName.GetFullNameExceptP4(p4CatalogPrevQuarterFileName, p4CatalogCurQuarterFileName);
+                    var fullNameExcRepP5 = FileName.GetFullNameExcRep(p5ReportPrevQuarterfileName, p4CatalogCurQuarterFileName);
+                    var fullNameExcRepP4 = FileName.GetFullNameExcRep(p4ReportPrevQuarterFileName, p4CatalogCurQuarterFileName);
+                    var fullNameLiquidation = FileName.GetFullNameLiquidation();
+                    var fullNameOkved = FileName.GetFullNameOkved();
+                    var fullNameOkato = FileName.GetFullNameOkato();
+
+                    var saveResultServices = new FileServices<ReportingModel>(new ReportingWork());
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurPrevQuar), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4CurPrev));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptPrevCurQuar), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4PrevCur));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptP5PrevQuarP4CurQuar), Path.Combine(Setting.GetFolderPath(), fullNameExcRepP5));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptP5PrevQuarP4CurQuar), Path.Combine(Setting.GetFolderPath(), fullNameExcRepP4));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(liquadationOrg.ToList<BaseModel>()), Path.Combine(Setting.GetFolderPath(), fullNameLiquidation));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkved, 11, 23), Path.Combine(Setting.GetFolderPath(), fullNameOkved));
+                    saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkato, 6, 18), Path.Combine(Setting.GetFolderPath(), fullNameOkato));
+
+                    _message.ShowMessageInformation("Сверка выполнена!");
+
+                }
+                else
+                {
+                    _message.ShowMessageError("Загружены не все данные");
+                }
             }
             catch (Exception ex)
             {
-                throw;
+                _message.ShowMessageError(ex.Message);
             }
         }
 
-        public void SaveSetting(SettingModel settingModel ) 
+        public void SaveSetting(SettingModel settingModel)
         {
             Setting.SetSetting(settingModel);
         }
 
-        public void GetSetting() 
+        public void GetSetting()
         {
             var setting = new SettingModel() { pathSaveFileResult = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{DateTime.Now.ToShortDateString()}_сверка") };
             Setting.SetSetting(setting);
