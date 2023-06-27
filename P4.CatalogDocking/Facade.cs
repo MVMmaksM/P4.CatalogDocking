@@ -284,7 +284,7 @@ namespace P4.CatalogDocking
 
 
                     var exceptCurPrevQuar = CatalogComparator.ExceptCatalog(p4CatalogCurQuarter.ToList<BaseModel>(), p4CatalogPrevQuarter.ToList<BaseModel>());
-                    var exceptPrevCurQuar = CatalogComparator.ExceptCatalog(p4CatalogCurQuarter.ToList<BaseModel>(), p4CatalogPrevQuarter.ToList<BaseModel>());
+                    var exceptPrevCurQuar = CatalogComparator.ExceptCatalog(p4CatalogPrevQuarter.ToList<BaseModel>(), p4CatalogCurQuarter.ToList<BaseModel>());
                     var exceptP4PrevQuarP4CurQuar = CatalogComparator.ExceptCatalog(p4ReportPrevQuarter.ToList<BaseModel>(), p4CatalogCurQuarter.ToList<BaseModel>());
                     var exceptP5PrevQuarP4CurQuar = CatalogComparator.ExceptCatalog(p5ReportPrevQuarter.ToList<BaseModel>(), p4CatalogCurQuarter.ToList<BaseModel>());
                     var liquadationOrg = CatalogComparator.GetLiquidatedOrganization(p4CatalogCurQuarter);
