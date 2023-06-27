@@ -1,4 +1,6 @@
-﻿using P4.CatalogDocking.Comparator;
+﻿using Newtonsoft.Json;
+using P4.CatalogDocking.Comparator;
+using P4.CatalogDocking.Exceptions;
 using P4.CatalogDocking.Models;
 using P4.CatalogDocking.Services;
 using P4.CatalogDocking.Settings;
@@ -7,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
@@ -16,6 +19,7 @@ namespace P4.CatalogDocking
     public class Facade
     {
         private IMessage _message;
+        private IHandleException _handleException;
 
         private List<CatalogModel> p4CatalogCurMonth = new List<CatalogModel>();
         private List<CatalogModel> p4CatalogPrevMonth = new List<CatalogModel>();
@@ -35,16 +39,19 @@ namespace P4.CatalogDocking
         string p1ReportPrevMonthFileName = string.Empty;
         string p5ReportPrevQuarterfileName = string.Empty;
 
-        public Facade(IMessage message)
+        private string _pathFileSettings = Path.Combine(Environment.CurrentDirectory, "appSettings.json");
+
+        public Facade(IHandleException handleException, IMessage message)
         {
             _message = message;
+            _handleException = handleException;
         }
 
         public string LoadP4CatCurMonth()
         {
             try
             {
-                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -58,7 +65,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -67,7 +74,7 @@ namespace P4.CatalogDocking
         {
             try
             {
-                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -81,7 +88,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -90,7 +97,7 @@ namespace P4.CatalogDocking
         {
             try
             {
-                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -104,7 +111,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -113,7 +120,7 @@ namespace P4.CatalogDocking
         {
             try
             {
-                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -127,7 +134,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -136,7 +143,7 @@ namespace P4.CatalogDocking
         {
             try
             {
-                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -150,7 +157,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -159,7 +166,7 @@ namespace P4.CatalogDocking
         {
             try
             {
-                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork());
+                var loadCatalogServices = new FileServices<CatalogModel>(new CatalogWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -173,7 +180,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -182,7 +189,7 @@ namespace P4.CatalogDocking
         {
             try
             {
-                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -196,7 +203,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -205,7 +212,7 @@ namespace P4.CatalogDocking
         {
             try
             {
-                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork());
+                var loadCatalogServices = new FileServices<ReportingModel>(new ReportingWork(_handleException));
                 var pathFile = FileDialog.ShowFileDialog();
 
                 if (pathFile is not null)
@@ -219,7 +226,7 @@ namespace P4.CatalogDocking
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
                 return string.Empty;
             }
         }
@@ -246,7 +253,7 @@ namespace P4.CatalogDocking
                     var fullNameOkved = FileName.GetFullNameOkved();
                     var fullNameOkato = FileName.GetFullNameOkato();
 
-                    var saveResultServices = new FileServices<ReportingModel>(new ReportingWork());
+                    var saveResultServices = new FileServices<ReportingModel>(new ReportingWork(_handleException));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurPrev), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4CurPrev));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptPrevCur), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4PrevCur));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurP4RepP1), Path.Combine(Setting.GetFolderPath(), fullNameExcRepP1));
@@ -255,16 +262,16 @@ namespace P4.CatalogDocking
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkved, 11, 23), Path.Combine(Setting.GetFolderPath(), fullNameOkved));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkato, 6, 18), Path.Combine(Setting.GetFolderPath(), fullNameOkato));
 
-                    _message.ShowMessageInformation("Сверка выполнена!");
+                    _message.Info("Сверка выполнена!");
                 }
                 else
                 {
-                    _message.ShowMessageError("Загружены не все данные!");
+                    _message.Warn("Загружены не все данные!");
                 }
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
             }
         }
 
@@ -292,7 +299,7 @@ namespace P4.CatalogDocking
                     var fullNameOkved = FileName.GetFullNameOkved();
                     var fullNameOkato = FileName.GetFullNameOkato();
 
-                    var saveResultServices = new FileServices<ReportingModel>(new ReportingWork());
+                    var saveResultServices = new FileServices<ReportingModel>(new ReportingWork(_handleException));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptCurPrevQuar), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4CurPrev));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptPrevCurQuar), Path.Combine(Setting.GetFolderPath(), fullNameExceptP4PrevCur));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(exceptP5PrevQuarP4CurQuar), Path.Combine(Setting.GetFolderPath(), fullNameExcRepP5));
@@ -301,29 +308,37 @@ namespace P4.CatalogDocking
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkved, 11, 23), Path.Combine(Setting.GetFolderPath(), fullNameOkved));
                     saveResultServices.Save(ExcelFileWork.GetExcelFromList(dockingOkato, 6, 18), Path.Combine(Setting.GetFolderPath(), fullNameOkato));
 
-                    _message.ShowMessageInformation("Сверка выполнена!");
+                    _message.Info("Сверка выполнена!");
 
                 }
                 else
                 {
-                    _message.ShowMessageError("Загружены не все данные");
+                    _message.Warn("Загружены не все данные");
                 }
             }
             catch (Exception ex)
             {
-                _message.ShowMessageError(ex.Message);
+                _handleException.HandleExceptions(ex);
             }
         }
 
         public void SaveSetting(SettingModel settingModel)
         {
+            var settingService = new FileServices<SettingModel>(new SettingService());
+            var serializeSetting = JsonConvert.SerializeObject(settingModel);
+            var bytesSetting = Encoding.UTF8.GetBytes(serializeSetting);
+            settingService.Save(bytesSetting, _pathFileSettings);
+
             Setting.SetSetting(settingModel);
+
+            _message.Info("Настройки сохранены!");
         }
 
         public void GetSetting()
         {
-            var setting = new SettingModel() { pathSaveFileResult = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{DateTime.Now.ToShortDateString()}_сверка") };
-            Setting.SetSetting(setting);
+            var settingService = new FileServices<SettingModel>(new SettingService());
+            var settings = settingService.Read(_pathFileSettings);
+            Setting.SetSetting(settings[0]);
         }
     }
 }

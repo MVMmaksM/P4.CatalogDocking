@@ -9,14 +9,18 @@ namespace P4.CatalogDocking.Services
 {
     public class Message : IMessage
     {
-        public void ShowMessageError(string message)
+        public void Error(string messageError)
         {
-            MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(messageError, "Ошибка", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+        }
+        public void Info(string messageInfo)
+        {
+            MessageBox.Show(messageInfo, "Информация", MessageBoxButton.OKCancel, MessageBoxImage.Information);
         }
 
-        public void ShowMessageInformation(string message)
+        public void Warn(string messageWarn)
         {
-            MessageBox.Show(message, "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(messageWarn, "Предупреждение", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
         }
     }
 }

@@ -8,7 +8,8 @@ namespace P4.CatalogDocking.Services
 {
     public interface IMessage
     {
-        void ShowMessageError(string message);
-        void ShowMessageInformation(string message);
+        void Error(string messageError);
+        void Info(string messageInfo);
+        void Warn(string messageWarn);
     }
 }

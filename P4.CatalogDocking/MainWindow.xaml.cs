@@ -1,4 +1,5 @@
 ﻿using P4.CatalogDocking.Comparator;
+using P4.CatalogDocking.Exceptions;
 using P4.CatalogDocking.Models;
 using P4.CatalogDocking.Services;
 using P4.CatalogDocking.Settings;
@@ -23,11 +24,15 @@ namespace P4.CatalogDocking
     public partial class MainWindow : Window
     {
         private Facade _facadeWork;
+        private IMessage _message;
+        private IHandleException _handleException;
 
         public MainWindow()
         {
             InitializeComponent();
-            _facadeWork = new Facade(new Message());
+            _message = new Message();
+            _handleException = new HandleException(_message);
+            _facadeWork = new Facade(_handleException, _message);
             _facadeWork.GetSetting();
             TxtBxPathSaveResultFile.Text = Setting.GetFolderPath();
         }
@@ -38,7 +43,7 @@ namespace P4.CatalogDocking
         }
 
         private void LoadP4CatPrevMonth_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             LblCountP4CatPrevMonth.Content = _facadeWork.LoadP4CatPrevMonth();
         }
 
@@ -59,7 +64,7 @@ namespace P4.CatalogDocking
 
         private void LoadP4CatPrevQuart_Click(object sender, RoutedEventArgs e)
         {
-            LblCountP4CatPrevQuart.Content = _facadeWork.LoadP4CatPrevQuart(); 
+            LblCountP4CatPrevQuart.Content = _facadeWork.LoadP4CatPrevQuart();
         }
 
         private void LoadP4RepPrevQuart_Click(object sender, RoutedEventArgs e)
@@ -84,7 +89,7 @@ namespace P4.CatalogDocking
 
         private void BtnSaveSetting_Click(object sender, RoutedEventArgs e)
         {
-            _facadeWork.SaveSetting(new SettingModel() {pathSaveFileResult = TxtBxPathSaveResultFile.Text });
+            _facadeWork.SaveSetting(new SettingModel() { pathSaveFileResult = TxtBxPathSaveResultFile.Text });
         }
     }
 }

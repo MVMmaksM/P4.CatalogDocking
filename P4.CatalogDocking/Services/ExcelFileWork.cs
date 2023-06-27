@@ -202,17 +202,17 @@ namespace P4.CatalogDocking.Services
                 sheet.Cells[i + 3, 11].Value = resultDockingCatalog[i].OkvedFact;
                 sheet.Cells[i + 3, 12].Value = resultDockingCatalog[i].TypActual;
                 sheet.Cells[i + 3, 13].Value = resultDockingCatalog[i].PrevOkpo;
-                sheet.Cells[i + 3, 14].Value = resultDockingCatalog[i].OkpoUl;
-                sheet.Cells[i + 3, 15].Value = resultDockingCatalog[i].Name;
-                sheet.Cells[i + 3, 16].Value = resultDockingCatalog[i].Okfs;
-                sheet.Cells[i + 3, 17].Value = resultDockingCatalog[i].Kies;
-                sheet.Cells[i + 3, 18].Value = resultDockingCatalog[i].OkatoFact;
-                sheet.Cells[i + 3, 19].Value = resultDockingCatalog[i].Okogu;
-                sheet.Cells[i + 3, 20].Value = resultDockingCatalog[i].Okopf;
-                sheet.Cells[i + 3, 21].Value = resultDockingCatalog[i].Oktmo;
-                sheet.Cells[i + 3, 22].Value = resultDockingCatalog[i].TypPred;
-                sheet.Cells[i + 3, 23].Value = resultDockingCatalog[i].OkvedFact;
-                sheet.Cells[i + 3, 24].Value = resultDockingCatalog[i].TypActual;
+                sheet.Cells[i + 3, 14].Value = resultDockingCatalog[i].PrevOkpoUl;
+                sheet.Cells[i + 3, 15].Value = resultDockingCatalog[i].PrevName;
+                sheet.Cells[i + 3, 16].Value = resultDockingCatalog[i].PrevOkfs;
+                sheet.Cells[i + 3, 17].Value = resultDockingCatalog[i].PrevKies;
+                sheet.Cells[i + 3, 18].Value = resultDockingCatalog[i].PrevOkatoFact;
+                sheet.Cells[i + 3, 19].Value = resultDockingCatalog[i].PrevOkogu;
+                sheet.Cells[i + 3, 20].Value = resultDockingCatalog[i].PrevOkopf;
+                sheet.Cells[i + 3, 21].Value = resultDockingCatalog[i].PrevOktmo;
+                sheet.Cells[i + 3, 22].Value = resultDockingCatalog[i].PrevTypPred;
+                sheet.Cells[i + 3, 23].Value = resultDockingCatalog[i].PrevOkvedFact;
+                sheet.Cells[i + 3, 24].Value = resultDockingCatalog[i].PrevTypActual;
             }
 
             var toRowEnd = resultDockingCatalog.Count;
